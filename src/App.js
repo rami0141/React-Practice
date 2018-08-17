@@ -5,8 +5,27 @@ import './App.css';
 // inside the component, we have the render method
 class App extends Component {
   // You can add new methods to a component HERE
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      title: 'App title'
+    };
+
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
   onClick() {
     alert("yummy!");
+  }
+  onChange(event) {
+    console.log(event.target.value);
+  }
+
+  onSubmit(event) {
+    event.preventDefault();
+
+    console.log(this.input.value);
   }
 
   render() {
@@ -18,6 +37,7 @@ class App extends Component {
 
     return (
       <div className="App">
+        <h1>{this.state.title}</h1>
         <h3>
           {
             food.map(item => {
@@ -27,6 +47,10 @@ class App extends Component {
             })
           }
         </h3>
+        <input onChange={this.onChange} />
+        <form onSubmit={this.onSubmit}>
+          <input ref={input => this.input = input} />
+        </form>
       </div>
     );
   }
